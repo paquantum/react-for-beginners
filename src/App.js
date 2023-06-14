@@ -1,35 +1,24 @@
-// import Button from "./Button";
-// import styles from "./App.module.css"
 import { useState, useEffect } from "react";
 
-/*
-  useEffect()는 특정 부분이 변경됐을 때,
-  원하는 코드만 실행할 수 있도록 도와줌
-*/
-function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onChange = (event) => setKeyword(event.target.value);
-  const onClick = () => setValue((prev) => prev + 1);
+// component가 destroy될 때 실행 될 function 생성
+// Cleanup function으로, 그냥 함수이지만 destroy될 때 뭔가 할 수 있도록 해줌
+// 사라질 때 분석 API를 보내거나 이벤트리스너를 지욱거나 콘솔로그하거나 등등
+// 중요한건 언제 create되고 언제 destroy 된다는 것
+function Hello() {
   useEffect(() => {
-    console.log("i run only once.");
+    console.log("hi :)");
+    return () => console.log("bye :(");
   }, []);
-  useEffect(() => {
-    console.log("I run when 'keyword' changes");
-  }, [keyword]);
-  useEffect(() => {
-    console.log("I run when 'counter' changes");
-  }, [counter]);
-  useEffect(() => {
-    console.log("I run when keyword & counter changes");
-  }, [keyword, counter]);
+  return <h1>Hello</h1>;
+}
 
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
     <div>
-      <input value={keyword} onChange={onChange} 
-          type="text" placeholder="Search here..." />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me</button>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
