@@ -19,10 +19,9 @@ function Home() {
       {loading ? <h1>Loading...</h1> : 
         <div>
         {movies.map((movie) => (
-          // 키 값이 꼭 필요함
-          // Prop를 Movie로 전달
           <Movie 
             key={movie.id}
+            id={movie.id}
             coverImg={movie.medium_cover_image} 
             title={movie.title} 
             summary={movie.summary} 
